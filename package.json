@@ -1,0 +1,37 @@
+{
+  "name": "vinejs-aliyun-oss-deployer",
+  "version": "1.0.0",
+  "description": "vine.js aliyun oss deployer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShawnZhou2000/vinejs-aliyun-oss-deployer.git"
+  },
+  "author": "shawn zhou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ShawnZhou2000/vinejs-aliyun-oss-deployer/issues"
+  },
+  "homepage": "https://github.com/ShawnZhou2000/vinejs-aliyun-oss-deployer#readme",
+  "dependencies": {
+    "ali-oss": "^6.17.1",
+    "chalk": "~4.1.2",
+    "dayjs": "^1.11.1",
+    "js-yaml": "^4.1.0",
+    "node-cmd": "^5.0.0",
+    "ora": "~5.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "rollup": "^2.70.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.4"
+  }
+}

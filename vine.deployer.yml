@@ -1,0 +1,15 @@
+# You need to complete this settings first before using this deployer.
+type: aliyun-oss
+auth:
+  region: oss-cn-beijing # your oss region
+  accessKeyId: # your access key id
+  accessKeySecret:  # your access key secret
+  bucket:  # your aliyun oss bucket name
+  path: vine/ # upload path name (must end with /), keep it empty if you want to upload files to root path
+# upload request headers
+upload_headers:
+  Cache-Control: 'no-cache'
+  Content-Encoding: 'UTF-8'
+  x-oss-storage-class: 'Standard'
+  x-oss-object-acl: 'public'
+  x-oss-forbid-overwrite: 'false'
