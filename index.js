@@ -22,9 +22,9 @@ const getYaml = (dir) => {
   });
 }
 
-const uploadDir = async (client, path, headers) => {
+const uploadDir = (client, path, headers) => {
   let fileURL = null;
-  fs.readdirSync(path).forEach(data => {
+  fs.readdirSync(path).forEach(async data => {
     fileURL = `${path}/${data}`;
     if (fs.statSync(fileURL).isDirectory()) {
       uploadDir(client, fileURL, headers);
