@@ -22,6 +22,19 @@ const getYaml = (dir) => {
   });
 }
 
+const uploadDir = async (client, path, headers) => {
+  let fileURL = null;
+  fs.readdirSync(path).forEach(data => {
+    fileURL = `${path}/${data}`;
+    if (fs.statSync(fileURL).isDirectory()) {
+      uploadDir(client, fileURL, headers);
+    } else {
+      log.info(`upload file ${fileURL}`);
+      await client.put(fileURL, path.normalize(fileURL), headers);
+    }
+  })
+}
+
 const uploadProcess = ora('upload dist folder to your OSS bucket...\n');
 
 /*
@@ -89,16 +102,14 @@ function publish() {
   .then(res => {
     const headers = res.upload_headers;
     uploadProcess.start();
-    return client.put(`${res.path}readme.md`, path.normalize('./README.md'), headers);
+    return uploadDir(client, path.resolve(process.cwd(), 'dist'), headers);
   })
-  .then(res => {
-    if (res.res.status === 200) {
-      uploadProcess.succeed();
-      log.info(JSON.stringify(res));
-      log.info('upload successful.');
-    }
+  .then(() => {
+    uploadProcess.succeed();
+    log.info('upload successful.');
   })
   .catch(err => {
+    uploadProcess.fail();
     console.log(err);
     log.error('Oops, something wrong in deployer.');
     process.exit(1);
