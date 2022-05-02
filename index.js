@@ -57,22 +57,23 @@ function generator(fn) {
   }
 }
 
-const uploadDir = (client, path, headers) => {
+const uploadDir = (client, path, headers, uploadPrefixPath) => {
   let fileURL = null;
   fs.readdirSync(path).forEach((data) => {
     generator(function* () {
-      fileURL = `${path}/${data}`;
+      fileURL = `${path}\\${data}`;
       if (fs.statSync(fileURL).isDirectory()) {
-        uploadDir(client, fileURL, headers);
+        uploadDir(client, fileURL, headers, uploadPrefixPath);
       } else {
         log.info(`upload file ${fileURL}`);
-        yield client.put(fileURL, path.normalize(fileURL), headers);
+        yield client.put(uploadPrefixPath + data, fileURL, headers);
       }
     });
   });
 };
 
 const uploadProcess = ora("upload dist folder to your OSS bucket...\n");
+let yamlConfig = {};
 
 /*
 0. 校验vine.deployer.yml是否合法，如合法则解析
@@ -124,7 +125,7 @@ function publish() {
         accessKeySecret: res.auth.accessKeySecret,
         bucket: res.auth.bucket,
       });
-      return res;
+      yamlConfig = res;
     })
     .catch((err) => {
       // yaml file error
@@ -147,12 +148,12 @@ function publish() {
         log.error(`try run command 'vine build' first.`);
         process.exit(1);
       }
-      return exists(path.resolve(commonPath, ".git"));
     })
-    .then((res) => {
-      const headers = res.upload_headers;
+    .then(() => {
+      const headers = yamlConfig.upload_headers;
+      const uploadPrefixPath = yamlConfig.auth.path;
       uploadProcess.start();
-      return uploadDir(client, path.resolve(process.cwd(), "dist"), headers);
+      return uploadDir(client, path.resolve(process.cwd(), "dist"), headers, uploadPrefixPath);
     })
     .then(() => {
       uploadProcess.succeed();
