@@ -20,6 +20,7 @@
   "dependencies": {
     "ali-oss": "^6.17.1",
     "chalk": "~4.1.2",
+    "coffee-script": "^1.12.7",
     "dayjs": "^1.11.1",
     "js-yaml": "^4.1.0",
     "node-cmd": "^5.0.0",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "@rollup/plugin-json": "^4.1.0",
     "rollup": "^2.70.2",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
