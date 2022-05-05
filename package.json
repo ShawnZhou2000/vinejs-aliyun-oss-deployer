@@ -1,6 +1,6 @@
 {
   "name": "vinejs-aliyun-oss-deployer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "vine.js aliyun oss deployer",
   "main": "index.js",
   "scripts": {
