@@ -82,7 +82,7 @@ let yamlConfig = {};
 3. 遍历并上传文件
 */
 function publish() {
-  return getYaml(path.resolve(process.cwd(), "deployer/vine.deployer.yml"))
+  return getYaml(path.resolve(process.cwd(), "vine.deployer.yml"))
     .then((res) => {
       if (res.type !== "aliyun-oss") {
         log.error(`Deployer type invalid, please check your config.`);
